@@ -30,9 +30,9 @@ class Player
     int money_;
 
     // communication with other players
-    QVector<QMap<Player*, int>> friends_;
-    QVector<QMap<Player*, int>> enemies_;
-    QVector<QMap<Player*, int>> neutral_;
+    QVector<QMap<Player, int>> friends_;
+    QVector<QMap<Player, int>> enemies_;
+    QVector<QMap<Player, int>> neutral_;
 
     // all player's regions
     QVector<Region*> regions_;

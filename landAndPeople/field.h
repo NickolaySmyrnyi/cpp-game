@@ -35,17 +35,17 @@ class Field : public QObject, public QGraphicsRectItem
     bool isNotFree();
 
     // setters
-    void addPlayer(Player* player);
+    void addPlayer(Player& player);
 
     // getters
-    Player* getPlayer(int index);
+    Player getPlayer(int index);
 
    private:
     // the number of regions which are owned, water or mount
     int notFreeRegions_ = 0;
 
     // all players and regions in the game
-    QVector<Player*> playerVector_;
+    QVector<Player> playerVector_;
     QVector<QVector<Region*>> regionVector_;
 
     // qt tools

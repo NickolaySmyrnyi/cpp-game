@@ -23,7 +23,7 @@ Game::Game(QWidget* parent) : QGraphicsView(parent)
         QString name = QInputDialog::getText(
             this, QString("Country " + QString::number(i + 1)),
             QString("Input the name"), QLineEdit::Normal, "Name");
-        Player* tempPlayer = new Player(name, colors[i]);
+        Player tempPlayer(name, colors[i]);
         field->addPlayer(tempPlayer);
     }
 
@@ -32,7 +32,7 @@ Game::Game(QWidget* parent) : QGraphicsView(parent)
 
     // adding panel with events
     panel = new Events();
-    panel->changeText(field->getPlayer(0)->getName());
+    panel->changeText(field->getPlayer(0).getName());
     scene->addItem(panel);
 
     // connecting changing of text
