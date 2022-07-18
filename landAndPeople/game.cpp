@@ -40,6 +40,7 @@ Game::Game(QWidget* parent) : QGraphicsView(parent)
     connect(field, &Field::signal1, panel, &Events::changeText);
     connect(field, &Field::signal2, this, &Game::addNames);
     connect(field, &Field::signal3, panel, &Events::startGame);
+    connect(field, &Field::signal4, panel, &Events::regionAdded);
 
     // showing the game
     show();
@@ -47,7 +48,7 @@ Game::Game(QWidget* parent) : QGraphicsView(parent)
 
 void Game::keyPressEvent(QKeyEvent* event)
 {
-    if (event->key() == Qt::Key_Space)
+    if (event->key() == Qt::Key_Space and panel->isGameStarted())
     {
         panel->printYears();
         makeAction();
@@ -61,6 +62,7 @@ void Game::makeAction()
 
 void Game::addNames(Region* region, bool flag)
 {
+    region->setBrush(Qt::gray);
     QString regionName = QInputDialog::getText(this, QString("Region"),
                                                QString("Input the name"),
                                                QLineEdit::Normal, "Region");

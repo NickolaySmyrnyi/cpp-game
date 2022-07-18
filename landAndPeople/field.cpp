@@ -143,8 +143,6 @@ Region* Field::findRegion2(Region* region, bool flag)
 {
     int x = region->getCoordinates().first;
     int y = region->getCoordinates().second;
-    qDebug() << x;
-    qDebug() << y;
 
     if (x != regionVector_.size() - 1 and y != 0)
     {
@@ -185,9 +183,9 @@ void Field::findNewRegion()
             Region* newRegion = findRegion1(firstRegion);
             if (newRegion)
             {
-                newRegion->setBrush(Qt::gray);
                 ++notFreeRegions_;
-                emit signal2(newRegion, false);
+                // emit signal2(newRegion, false);
+                emit signal4(player.getName());
                 player.addRegion(newRegion);
             }
         }
@@ -196,9 +194,9 @@ void Field::findNewRegion()
             Region* newRegion = findRegion2(firstRegion);
             if (newRegion)
             {
-                newRegion->setBrush(Qt::gray);
                 ++notFreeRegions_;
-                emit signal2(newRegion, false);
+                // emit signal2(newRegion, false);
+                emit signal4(player.getName());
                 player.addRegion(newRegion);
             }
         }
@@ -212,9 +210,9 @@ void Field::findNewRegion()
                 Region* newRegion = findRegion1(secondRegion);
                 if (newRegion)
                 {
-                    newRegion->setBrush(Qt::gray);
                     ++notFreeRegions_;
-                    emit signal2(newRegion, false);
+                    // emit signal2(newRegion, false);
+                    emit signal4(player.getName());
                     player.addRegion(newRegion);
                 }
             }
@@ -223,9 +221,9 @@ void Field::findNewRegion()
                 Region* newRegion = findRegion2(secondRegion);
                 if (newRegion)
                 {
-                    newRegion->setBrush(Qt::gray);
                     ++notFreeRegions_;
-                    emit signal2(newRegion, false);
+                    // emit signal2(newRegion, false);
+                    emit signal4(player.getName());
                     player.addRegion(newRegion);
                 }
             }
@@ -259,6 +257,9 @@ void Field::setStartingRegions(Region* region)
 
         if (counter < playerVector_.size())
         {
+            // pass a signal to input name of region and name of city
+            emit signal2(region);
+
             // adding new region to a player
             playerVector_[counter].addRegion(region);
 
@@ -266,9 +267,6 @@ void Field::setStartingRegions(Region* region)
             ++notFreeRegions_;
             drawCity(region);
             region->setCity(true);
-
-            // pass a signal to input name of region and name of city
-            emit signal2(region);
 
             // pass signal to change the label giving hint to a user
             if (counter + 1 != playerVector_.size())

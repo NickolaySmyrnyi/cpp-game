@@ -6,6 +6,8 @@ Events::Events(QGraphicsItem *parent) : QGraphicsTextItem(parent)
     setFont(QFont("times", 12));
 }
 
+bool Events::isGameStarted() { return gameStarted_; }
+
 void Events::printYears()
 {
     static int spaces = 0;
@@ -16,6 +18,11 @@ void Events::printYears()
 void Events::changeText(QString name)
 {
     setPlainText("Choose the starting region\nof " + name);
+}
+
+void Events::regionAdded(QString name)
+{
+    setPlainText(name + " added new region");
 }
 
 void Events::startGame()
