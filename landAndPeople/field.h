@@ -28,10 +28,12 @@ class Field : public QObject, public QGraphicsRectItem
     void drawMountain(Region* mountain);
     void drawCity(Region* city);
 
+    // algorithms for country spreading at the start of the game
     Region* findRegion1(Region* region, bool flag = true);
     Region* findRegion2(Region* region, bool flag = true);
     void findNewRegion();
 
+    // checking if all the regions are filled
     bool isNotFree();
 
     // setters

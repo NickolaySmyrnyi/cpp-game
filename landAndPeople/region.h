@@ -6,6 +6,8 @@
 #include <QGraphicsScene>
 #include <QPair>
 
+#include "city.h"
+
 // class which provides information of regions
 // representing the parts of world
 class Region : public QObject, public QGraphicsRectItem
@@ -59,6 +61,7 @@ class Region : public QObject, public QGraphicsRectItem
     bool mountain_ = false;
     bool city_ = false;
 
+    // coordinates of the region in the field
     QPair<int, int> coordinates_;
    signals:
     void signal(Region* region, bool flag = true);
