@@ -33,7 +33,7 @@ class Game : public QGraphicsView
                                Qt::darkRed, Qt::darkGreen};
    public slots:
     // adding names for region and (depending on flag) for city in region
-    void addNames(Region* region, bool flag = true);
+    void addNames(City& city, Region* region, bool flag = true);
 };
 
 #endif  // GAME_H

@@ -27,7 +27,7 @@ class Region : public QObject, public QGraphicsRectItem
     bool isForest();
     bool isMountain();
     bool isOwned();
-    bool isCity();
+    City getCity();
     QPair<int, int> getCoordinates();
 
     // setters
@@ -40,7 +40,7 @@ class Region : public QObject, public QGraphicsRectItem
     void setForest(bool flag);
     void setMountain(bool flag);
     void setOwned(bool flag);
-    void setCity(bool flag);
+    void setCity(City& city);
     void setCoordinates(int x, int y);
 
     // qt tools
@@ -59,7 +59,9 @@ class Region : public QObject, public QGraphicsRectItem
     bool ground_ = false;
     bool forest_ = false;
     bool mountain_ = false;
-    bool city_ = false;
+
+    // city at the region
+    City city_;
 
     // coordinates of the region in the field
     QPair<int, int> coordinates_;

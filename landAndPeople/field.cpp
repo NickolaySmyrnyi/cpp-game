@@ -267,16 +267,22 @@ void Field::setStartingRegions(Region* region)
 
         if (counter < playerVector_.size())
         {
+            City newCity(playerVector_[counter].getName());
+
+            // making city in region a capital
+            newCity.setCapital(true);
+
             // pass a signal to input name of region and name of city
-            emit signal2(region);
+            emit signal2(newCity, region);
 
             // adding new region to a player
             playerVector_[counter].addRegion(region);
+            playerVector_[counter].addCity(newCity);
 
             // region is not free now and city is located in it
             ++notFreeRegions_;
             drawCity(region);
-            region->setCity(true);
+            region->setCity(newCity);
 
             // pass signal to change the label giving hint to a user
             if (counter + 1 != playerVector_.size())

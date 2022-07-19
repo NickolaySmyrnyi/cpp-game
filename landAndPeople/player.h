@@ -15,6 +15,7 @@ class Player
 
     // setters
     void addRegion(Region* region);
+    void addCity(City& city);
 
     // getters
     QString getName();
@@ -34,8 +35,9 @@ class Player
     QVector<QMap<Player, int>> enemies_;
     QVector<QMap<Player, int>> neutral_;
 
-    // all player's regions
+    // all player's regions and cities
     QVector<Region*> regions_;
+    QVector<City> cities_;
 };
 
 #endif  // PLAYER_H
