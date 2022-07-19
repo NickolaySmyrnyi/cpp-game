@@ -119,6 +119,8 @@ Region* Field::findRegion1(Region* region, bool flag)
 {
     int x = region->getCoordinates().first;
     int y = region->getCoordinates().second;
+
+    // checking if the region is not on the side
     if (x != 0)
     {
         if (regionVector_[x - 1][y]->isFree()) return regionVector_[x - 1][y];
@@ -135,7 +137,10 @@ Region* Field::findRegion1(Region* region, bool flag)
     {
         if (regionVector_[x][y + 1]->isFree()) return regionVector_[x][y + 1];
     }
+
+    // if all of four regions are not free we check other regions
     if (flag) return findRegion2(region, false);
+
     return nullptr;
 }
 
@@ -143,9 +148,8 @@ Region* Field::findRegion2(Region* region, bool flag)
 {
     int x = region->getCoordinates().first;
     int y = region->getCoordinates().second;
-    qDebug() << x;
-    qDebug() << y;
 
+    // checking if the region is not on the side
     if (x != regionVector_.size() - 1 and y != 0)
     {
         if (regionVector_[x + 1][y - 1]->isFree())
@@ -166,7 +170,10 @@ Region* Field::findRegion2(Region* region, bool flag)
         if (regionVector_[x - 1][y - 1]->isFree())
             return regionVector_[x - 1][y - 1];
     }
+
+    // if all of four regions are not free we check other regions
     if (flag) return findRegion1(region, false);
+
     return nullptr;
 }
 
@@ -174,20 +181,22 @@ void Field::findNewRegion()
 {
     for (Player& player : playerVector_)
     {
+        // choosing random regions for spreading
         int n = player.countRegions();
         int indexFirstRegion = rand() % n;
         int indexSecondRegion = rand() % n;
 
+        // choosing randomly from which part to start spreading
         Region* firstRegion = player.getRegion(indexFirstRegion);
         int mode = rand() % 2;
+
         if (mode)
         {
             Region* newRegion = findRegion1(firstRegion);
             if (newRegion)
             {
-                newRegion->setBrush(Qt::gray);
                 ++notFreeRegions_;
-                emit signal2(newRegion, false);
+                emit signal4(player.getName() + " added region\n");
                 player.addRegion(newRegion);
             }
         }
@@ -196,13 +205,13 @@ void Field::findNewRegion()
             Region* newRegion = findRegion2(firstRegion);
             if (newRegion)
             {
-                newRegion->setBrush(Qt::gray);
                 ++notFreeRegions_;
-                emit signal2(newRegion, false);
+                emit signal4(player.getName() + " added region\n");
                 player.addRegion(newRegion);
             }
         }
 
+        // if regions are the same, we do not spread the second time
         if (indexFirstRegion != indexSecondRegion)
         {
             Region* secondRegion = player.getRegion(indexSecondRegion);
@@ -212,9 +221,8 @@ void Field::findNewRegion()
                 Region* newRegion = findRegion1(secondRegion);
                 if (newRegion)
                 {
-                    newRegion->setBrush(Qt::gray);
                     ++notFreeRegions_;
-                    emit signal2(newRegion, false);
+                    emit signal4(player.getName() + " added region\n");
                     player.addRegion(newRegion);
                 }
             }
@@ -223,9 +231,8 @@ void Field::findNewRegion()
                 Region* newRegion = findRegion2(secondRegion);
                 if (newRegion)
                 {
-                    newRegion->setBrush(Qt::gray);
                     ++notFreeRegions_;
-                    emit signal2(newRegion, false);
+                    emit signal4(player.getName() + " added region\n");
                     player.addRegion(newRegion);
                 }
             }
@@ -233,6 +240,7 @@ void Field::findNewRegion()
     }
 }
 
+// checking if the number of not free regions is equal to the area of field
 bool Field::isNotFree()
 {
     return notFreeRegions_ == regionVector_.size() * regionVector_[0].size();
@@ -259,6 +267,9 @@ void Field::setStartingRegions(Region* region)
 
         if (counter < playerVector_.size())
         {
+            // pass a signal to input name of region and name of city
+            emit signal2(region);
+
             // adding new region to a player
             playerVector_[counter].addRegion(region);
 
@@ -266,9 +277,6 @@ void Field::setStartingRegions(Region* region)
             ++notFreeRegions_;
             drawCity(region);
             region->setCity(true);
-
-            // pass a signal to input name of region and name of city
-            emit signal2(region);
 
             // pass signal to change the label giving hint to a user
             if (counter + 1 != playerVector_.size())

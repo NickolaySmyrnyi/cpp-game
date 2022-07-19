@@ -11,23 +11,21 @@ class Events : public QGraphicsTextItem
     // constructors
     Events(QGraphicsItem* parent = 0);
 
+    // getters
+    bool isGameStarted();
+
     // qt tools
     void printYears();
 
    private:
+    // if all starting regions are filled
     bool gameStarted_ = false;
-    QVector<QVector<QString>> years_;
-    enum seasons
-    {
-        WINTER,
-        SPRING,
-        SUMMER,
-        AUTUMN
-    };
 
    public slots:
-    // changing text for starting regions procedure
+    // changing text for starting regions procedure, start of the game
+    // and for some actions
     void changeText(QString name);
+    void messageAdded(QString message);
     void startGame();
 };
 

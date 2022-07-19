@@ -28,10 +28,12 @@ class Field : public QObject, public QGraphicsRectItem
     void drawMountain(Region* mountain);
     void drawCity(Region* city);
 
+    // algorithms for country spreading at the start of the game
     Region* findRegion1(Region* region, bool flag = true);
     Region* findRegion2(Region* region, bool flag = true);
     void findNewRegion();
 
+    // checking if all the regions are filled
     bool isNotFree();
 
     // setters
@@ -41,7 +43,7 @@ class Field : public QObject, public QGraphicsRectItem
     Player getPlayer(int index);
 
    private:
-    // the number of regions which are owned, water or mount
+    // the number of regions which are owned, water
     int notFreeRegions_ = 0;
 
     // all players and regions in the game
@@ -64,6 +66,7 @@ class Field : public QObject, public QGraphicsRectItem
     void signal1(QString name);
     void signal2(Region* region, bool flag = true);
     void signal3();
+    void signal4(QString name);
 };
 
 #endif  // FIELD_H

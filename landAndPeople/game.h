@@ -14,20 +14,24 @@ class Game : public QGraphicsView
    public:
     // constructors
     Game(QWidget* parent = 0);
-    void keyPressEvent(QKeyEvent* event) override;
+
+    // making some actions of some countries every year
     void makeAction();
-   public slots:
-    // field with game and panel with messages
-    Field* field;
-    Events* panel;
 
     // qt tools
+    void keyPressEvent(QKeyEvent* event) override;
     QGraphicsScene* scene;
 
-    // vector of colors for players
-    QVector<QColor> colors = {Qt::green, Qt::red,  Qt::magenta, Qt::yellow,
-                              Qt::cyan,  Qt::gray, Qt::darkRed, Qt::darkGreen};
+   private:
+    // field with game and panel with messages
+    Field* field_;
+    Events* panel_;
 
+    // vector of colors for players
+    QVector<QColor> colors_ = {Qt::green,   Qt::red,      Qt::magenta,
+                               Qt::yellow,  Qt::cyan,     Qt::darkMagenta,
+                               Qt::darkRed, Qt::darkGreen};
+   public slots:
     // adding names for region and (depending on flag) for city in region
     void addNames(Region* region, bool flag = true);
 };

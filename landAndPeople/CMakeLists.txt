@@ -26,6 +26,8 @@ set(PROJECT_SOURCES
         player.cpp
         panel.h
         panel.cpp
+        city.h
+        city.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
