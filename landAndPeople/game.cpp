@@ -15,9 +15,8 @@ Game::Game(QWidget* parent) : QGraphicsView(parent)
     scene->addItem(field_);
 
     // crating players by user
-    int countries =
-        QInputDialog::getInt(this, tr("Number of countries"),
-                             tr("Input the number of countries"), 4, 2, 8, 1);
+    int countries = QInputDialog::getInt(
+        this, tr("Starting"), tr("Input the number of countries"), 4, 2, 8, 1);
     for (size_t i = 0; i < countries; ++i)
     {
         QString name = QInputDialog::getText(
@@ -35,6 +34,12 @@ Game::Game(QWidget* parent) : QGraphicsView(parent)
     panel_->changeText(field_->getPlayer(0).getName());
     scene->addItem(panel_);
 
+    // adding button
+    button = new QPushButton(this);
+    button->setGeometry(1050, 600, 200, 100);
+    button->setText("Show the landscape");
+    scene->addWidget(button);
+
     // connecting changing of text
     // connecting adding names to regions and cities
     // connectimg message about starting of the game
@@ -43,6 +48,7 @@ Game::Game(QWidget* parent) : QGraphicsView(parent)
     connect(field_, &Field::signal2, this, &Game::addNames);
     connect(field_, &Field::signal3, panel_, &Events::startGame);
     connect(field_, &Field::signal4, panel_, &Events::messageAdded);
+    connect(button, &QPushButton::clicked, this, &Game::showLandscape);
 
     // showing the game
     show();
@@ -81,4 +87,20 @@ void Game::addNames(City& city, Region* region, bool flag)
         city.setName(cityName);
         city.setRegion(regionName);
     }
+    if (field_->isLandscape()) region->setLandscapeColor();
+}
+
+void Game::showLandscape()
+{
+    if (field_->isLandscape())
+    {
+        field_->becomePolitical();
+        button->setText("Show the landscape");
+    }
+    else
+    {
+        field_->becomeLandscape();
+        button->setText("Show the political map");
+    }
+    setFocus();
 }

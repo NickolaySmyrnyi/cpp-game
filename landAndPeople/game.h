@@ -4,6 +4,7 @@
 #include <QGraphicsView>
 #include <QInputDialog>
 #include <QKeyEvent>
+#include <QPushButton>
 
 #include "panel.h"
 
@@ -21,6 +22,7 @@ class Game : public QGraphicsView
     // qt tools
     void keyPressEvent(QKeyEvent* event) override;
     QGraphicsScene* scene;
+    QPushButton* button;
 
    private:
     // field with game and panel with messages
@@ -34,6 +36,7 @@ class Game : public QGraphicsView
    public slots:
     // adding names for region and (depending on flag) for city in region
     void addNames(City& city, Region* region, bool flag = true);
+    void showLandscape();
 };
 
 #endif  // GAME_H

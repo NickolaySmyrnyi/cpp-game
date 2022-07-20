@@ -14,13 +14,15 @@ QString Player::getName() { return name_; }
 
 Region* Player::getRegion(int index) { return regions_[index]; }
 
+QColor Player::getColor() { return color_; }
+
 int Player::countRegions() { return regions_.size(); }
 
-void Player::addRegion(Region* region)
+void Player::addRegion(Region* region, bool flag)
 {
     // getting the region and setting to it player's color
     regions_.push_back(region);
-    region->setBrush(color_);
+    if (!flag) region->setBrush(color_);
     // filling the characteristics of the region
     region->setFree(false);
     region->setOwned(true);

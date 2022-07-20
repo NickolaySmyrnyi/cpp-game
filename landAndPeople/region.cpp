@@ -53,6 +53,30 @@ void Region::setCoordinates(int x, int y)
     coordinates_ = QPair<int, int>(x, y);
 }
 
+void Region::setLandscapeColor()
+{
+    if (desert_)
+    {
+        setBrush(Qt::yellow);
+        return;
+    }
+    if (ground_)
+    {
+        setBrush(Qt::gray);
+        return;
+    }
+    if (forest_)
+    {
+        setBrush(Qt::green);
+        return;
+    }
+    if (mountain_)
+    {
+        setBrush(Qt::white);
+        return;
+    }
+}
+
 void Region::mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event)
 {
     emit signal(this);
