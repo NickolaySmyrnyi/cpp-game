@@ -36,15 +36,22 @@ class Field : public QObject, public QGraphicsRectItem
     // checking if all the regions are filled
     bool isNotFree();
 
+    void becomeLandscape();
+    void becomePolitical();
+
     // setters
     void addPlayer(Player& player);
+    void setLandscape(bool flag);
 
     // getters
     Player getPlayer(int index);
+    bool isLandscape();
 
    private:
     // the number of regions which are owned, water
     int notFreeRegions_ = 0;
+
+    bool landscape_ = false;
 
     // all players and regions in the game
     QVector<Player> playerVector_;

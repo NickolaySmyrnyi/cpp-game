@@ -13,13 +13,15 @@ class Player
     Player(QString& name, QColor& color);
     Player(QString& name, QColor& color, int money);
 
+    void addRegion(Region* region, bool flag);
+
     // setters
-    void addRegion(Region* region);
     void addCity(City& city);
 
     // getters
     QString getName();
     Region* getRegion(int index);
+    QColor getColor();
 
     // number of player's regions
     int countRegions();

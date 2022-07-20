@@ -197,7 +197,7 @@ void Field::findNewRegion()
             {
                 ++notFreeRegions_;
                 emit signal4(player.getName() + " added region\n");
-                player.addRegion(newRegion);
+                player.addRegion(newRegion, landscape_);
             }
         }
         else
@@ -207,7 +207,7 @@ void Field::findNewRegion()
             {
                 ++notFreeRegions_;
                 emit signal4(player.getName() + " added region\n");
-                player.addRegion(newRegion);
+                player.addRegion(newRegion, landscape_);
             }
         }
 
@@ -223,7 +223,7 @@ void Field::findNewRegion()
                 {
                     ++notFreeRegions_;
                     emit signal4(player.getName() + " added region\n");
-                    player.addRegion(newRegion);
+                    player.addRegion(newRegion, landscape_);
                 }
             }
             else
@@ -233,7 +233,7 @@ void Field::findNewRegion()
                 {
                     ++notFreeRegions_;
                     emit signal4(player.getName() + " added region\n");
-                    player.addRegion(newRegion);
+                    player.addRegion(newRegion, landscape_);
                 }
             }
         }
@@ -246,9 +246,40 @@ bool Field::isNotFree()
     return notFreeRegions_ == regionVector_.size() * regionVector_[0].size();
 }
 
+void Field::becomeLandscape()
+{
+    for (auto& column : regionVector_)
+    {
+        for (auto& region : column) region->setLandscapeColor();
+    }
+    landscape_ = true;
+}
+
+void Field::becomePolitical()
+{
+    for (auto& country : playerVector_)
+    {
+        for (int i = 0, n = country.countRegions(); i < n; ++i)
+            country.getRegion(i)->setBrush(country.getColor());
+    }
+    for (auto& column : regionVector_)
+    {
+        for (auto& region : column)
+        {
+            if (!(region->isOwned() or region->isWater()))
+                region->setBrush(Qt::white);
+        }
+    }
+    landscape_ = false;
+}
+
 void Field::addPlayer(Player& player) { playerVector_.push_back(player); }
 
+void Field::setLandscape(bool flag) { landscape_ = flag; }
+
 Player Field::getPlayer(int index) { return playerVector_[index]; }
+
+bool Field::isLandscape() { return landscape_; }
 
 void Field::setStartingRegions(Region* region)
 {
@@ -276,7 +307,7 @@ void Field::setStartingRegions(Region* region)
             emit signal2(newCity, region);
 
             // adding new region to a player
-            playerVector_[counter].addRegion(region);
+            playerVector_[counter].addRegion(region, landscape_);
             playerVector_[counter].addCity(newCity);
 
             // region is not free now and city is located in it

@@ -43,6 +43,8 @@ class Region : public QObject, public QGraphicsRectItem
     void setCity(City& city);
     void setCoordinates(int x, int y);
 
+    void setLandscapeColor();
+
     // qt tools
     void mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event) override;
 
