@@ -24,7 +24,7 @@ bool Region::isMountain() { return mountain_; }
 
 bool Region::isOwned() { return owned_; }
 
-bool Region::isCity() { return city_; }
+City Region::getCity() { return city_; }
 
 QPair<int, int> Region::getCoordinates() { return coordinates_; }
 
@@ -46,7 +46,7 @@ void Region::setMountain(bool flag) { mountain_ = flag; }
 
 void Region::setOwned(bool flag) { owned_ = flag; }
 
-void Region::setCity(bool flag) { city_ = flag; }
+void Region::setCity(City& city) { city_ = city; }
 
 void Region::setCoordinates(int x, int y)
 {

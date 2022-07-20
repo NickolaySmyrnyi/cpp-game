@@ -64,7 +64,7 @@ class Field : public QObject, public QGraphicsRectItem
 
    signals:
     void signal1(QString name);
-    void signal2(Region* region, bool flag = true);
+    void signal2(City& city, Region* region, bool flag = true);
     void signal3();
     void signal4(QString name);
 };

@@ -26,3 +26,5 @@ void Player::addRegion(Region* region)
     region->setOwned(true);
     region->setOwner(name_);
 }
+
+void Player::addCity(City& city) { cities_.push_back(city); }

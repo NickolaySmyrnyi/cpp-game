@@ -64,20 +64,21 @@ void Game::makeAction()
     if (!field_->isNotFree()) field_->findNewRegion();
 }
 
-void Game::addNames(Region* region, bool flag)
+void Game::addNames(City& city, Region* region, bool flag)
 {
     // gray brush in order for user to see the region
     region->setBrush(Qt::gray);
 
-    QString regionName = QInputDialog::getText(this, QString("Region"),
-                                               QString("Input the name"),
-                                               QLineEdit::Normal, "Region");
+    QString regionName = QInputDialog::getText(
+        this, QString(city.getOwner()), QString("Input the name of the region"),
+        QLineEdit::Normal, "Region");
     region->setName(regionName);
     if (flag)
     {
-        QString cityName = QInputDialog::getText(this, QString("City"),
-                                                 QString("Input the name"),
-                                                 QLineEdit::Normal, "City");
-        region->setName(cityName);
+        QString cityName = QInputDialog::getText(
+            this, QString(city.getOwner()),
+            QString("Input the name of the city"), QLineEdit::Normal, "City");
+        city.setName(cityName);
+        city.setRegion(regionName);
     }
 }
