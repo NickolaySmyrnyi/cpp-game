@@ -36,7 +36,7 @@ Game::Game(QWidget* parent) : QGraphicsView(parent)
 
     // adding button
     button = new QPushButton(this);
-    button->setGeometry(1050, 600, 200, 100);
+    button->setGeometry(50, 600, 200, 100);
     button->setText("Show the landscape");
     scene->addWidget(button);
 
@@ -95,7 +95,7 @@ void Game::showLandscape()
     if (field_->isLandscape())
     {
         field_->becomePolitical();
-        button->setText("Show the landscape");
+        button->setText("Show the landscape map");
     }
     else
     {

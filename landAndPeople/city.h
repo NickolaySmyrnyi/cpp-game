@@ -19,10 +19,11 @@ class City
 
     // getters
     QString getOwner();
+    QString getName();
 
    private:
     // names of city , its region and its country
-    QString name_;
+    QString name_ = "";
     QString region_;
     QString owner_;
 

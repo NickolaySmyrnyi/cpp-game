@@ -2,7 +2,7 @@
 
 Events::Events(QGraphicsItem *parent) : QGraphicsTextItem(parent)
 {
-    setPos(1000, 0);
+    setPos(0, 0);
     setFont(QFont("times", 12));
 }
 

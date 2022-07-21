@@ -13,3 +13,5 @@ void City::setOwner(QString name) { owner_ = name; }
 void City::setCapital(bool flag) { capital_ = flag; }
 
 QString City::getOwner() { return owner_; }
+
+QString City::getName() { return name_; }

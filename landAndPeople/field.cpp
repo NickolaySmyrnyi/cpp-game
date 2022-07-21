@@ -4,7 +4,7 @@ Field::Field(QGraphicsItem* parent) : QGraphicsRectItem(parent) {}
 
 void Field::appear()
 {
-    for (int x = 0; x < 1000; x += 50)
+    for (int x = 300; x < 1300; x += 50)
     {
         // vector, representing a column, variables for
         // luck (to make some equal regions in a row)
@@ -342,4 +342,9 @@ void Field::setStartingRegions(Region* region)
     }
 }
 
-void Field::getRegionInformation() { qDebug() << "you are genious"; }
+void Field::getRegionInformation(Region* region)
+{
+    message_ = new QMessageBox;
+    message_->setText(region->getInfo());
+    message_->exec();
+}
