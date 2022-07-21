@@ -77,6 +77,26 @@ void Region::setLandscapeColor()
     }
 }
 
+QString Region::getInfo()
+{
+    QString result = "";
+    result += "Name: " + name_ + '\n';
+    if (owned_) result += "Owner: " + owner_ + '\n';
+    if (city_.getName() != "") result += "City: " + city_.getName() + '\n';
+    result += "Landscape type: ";
+    if (water_)
+        result += "water";
+    else if (mountain_)
+        result += "mountain";
+    else if (ground_)
+        result += "ground";
+    else if (forest_)
+        result += "forest";
+    else
+        result += "desert";
+    return result;
+}
+
 void Region::mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event)
 {
     emit signal(this);

@@ -67,7 +67,7 @@ class Field : public QObject, public QGraphicsRectItem
     void setStartingRegions(Region* region);
 
     // get information about existing regions
-    void getRegionInformation();
+    void getRegionInformation(Region* region);
 
    signals:
     void signal1(QString name);

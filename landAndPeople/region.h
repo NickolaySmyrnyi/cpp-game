@@ -45,13 +45,15 @@ class Region : public QObject, public QGraphicsRectItem
 
     void setLandscapeColor();
 
+    QString getInfo();
+
     // qt tools
     void mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event) override;
 
    private:
     // name of region and name of owner
-    QString name_;
-    QString owner_;
+    QString name_ = "noname";
+    QString owner_ = "";
 
     // characteristics of the region
     bool free_ = true;
