@@ -20,8 +20,22 @@ class Field : public QObject, public QGraphicsRectItem
     // constructors
     Field(QGraphicsItem* parent = 0);
 
+    // setters
+    void addPlayer(Player& player);
+    void setLandscape(bool flag);
+
+    // getters
+    Player getPlayer(int index);
+    bool isLandscape();
+
     // function to make field visible and be created
     void appear();
+
+    // count the number of players
+    int countPlayers();
+
+    // actions
+    int changeRelations(int index1, int index2, int bonus);
 
     // functions for drawing different items in regions
     void drawWater(Region* water);
@@ -36,16 +50,9 @@ class Field : public QObject, public QGraphicsRectItem
     // checking if all the regions are filled
     bool isNotFree();
 
+    // change the map appearence
     void becomeLandscape();
     void becomePolitical();
-
-    // setters
-    void addPlayer(Player& player);
-    void setLandscape(bool flag);
-
-    // getters
-    Player getPlayer(int index);
-    bool isLandscape();
 
    private:
     // the number of regions which are owned, water

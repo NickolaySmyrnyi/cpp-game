@@ -15,7 +15,8 @@ void Events::printYears()
 
     if (gameStarted_)
     {
-        setPlainText("Press \"SPACE\"\nYear " + QString::number(spaces) + '\n');
+        setPlainText("Press \"SPACE\"\nYear " + QString::number(spaces) +
+                     "\n\n");
     }
 
     ++spaces;
@@ -28,7 +29,7 @@ void Events::changeText(QString name)
 
 void Events::messageAdded(QString message)
 {
-    setPlainText(toPlainText() + message);
+    setPlainText(toPlainText() + message + "\n\n");
 }
 
 void Events::startGame()

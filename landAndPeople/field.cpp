@@ -13,7 +13,7 @@ void Field::appear()
         bool desert = false;
         QVector<Region*> column;
 
-        for (int y = 0; y < 800; y += 50)
+        for (int y = 0; y < 900; y += 50)
         {
             // chance for landscape of regions, regions of a
             // field, flag to fill unfilled regions
@@ -85,6 +85,31 @@ void Field::appear()
                              &Field::setStartingRegions);
         }
     }
+}
+
+int Field::countPlayers() { return playerVector_.size(); }
+
+int Field::changeRelations(int index1, int index2, int bonus)
+{
+    if (!playerVector_[index1].countries.contains(playerVector_[index2]))
+    {
+        playerVector_[index1].countries[playerVector_[index2]] = 0;
+        playerVector_[index2].countries[playerVector_[index1]] = 0;
+        qDebug() << playerVector_[index1].getName() << ' '
+                 << playerVector_[index2].getName();
+        return 0;
+    }
+
+    playerVector_[index1].countries[playerVector_[index2]] += bonus;
+    playerVector_[index2].countries[playerVector_[index1]] += bonus;
+    int temp = playerVector_[index1].countries[playerVector_[index2]];
+    qDebug() << playerVector_[index1].getName() << ' '
+             << playerVector_[index2].getName() << temp;
+    if (temp - bonus < 10 and temp >= 10) return 1;
+    if (temp - bonus >= 10 and temp < 10) return 2;
+    if (temp - bonus > -10 and temp <= -10) return 3;
+    if (temp - bonus <= -10 and temp > -10) return 4;
+    return 5;
 }
 
 void Field::drawWater(Region* water)
@@ -185,6 +210,7 @@ void Field::findNewRegion()
         int n = player.countRegions();
         int indexFirstRegion = rand() % n;
         int indexSecondRegion = rand() % n;
+        bool oneRegion = false, twoRegion = false;
 
         // choosing randomly from which part to start spreading
         Region* firstRegion = player.getRegion(indexFirstRegion);
@@ -196,7 +222,7 @@ void Field::findNewRegion()
             if (newRegion)
             {
                 ++notFreeRegions_;
-                emit signal4(player.getName() + " added region\n");
+                oneRegion = true;
                 player.addRegion(newRegion, landscape_);
             }
         }
@@ -206,7 +232,7 @@ void Field::findNewRegion()
             if (newRegion)
             {
                 ++notFreeRegions_;
-                emit signal4(player.getName() + " added region\n");
+                oneRegion = true;
                 player.addRegion(newRegion, landscape_);
             }
         }
@@ -222,7 +248,7 @@ void Field::findNewRegion()
                 if (newRegion)
                 {
                     ++notFreeRegions_;
-                    emit signal4(player.getName() + " added region\n");
+                    twoRegion = true;
                     player.addRegion(newRegion, landscape_);
                 }
             }
@@ -232,11 +258,16 @@ void Field::findNewRegion()
                 if (newRegion)
                 {
                     ++notFreeRegions_;
-                    emit signal4(player.getName() + " added region\n");
+                    twoRegion = true;
                     player.addRegion(newRegion, landscape_);
                 }
             }
         }
+
+        if (oneRegion and twoRegion)
+            emit signal4(player.getName() + " added 2 regions");
+        else if (oneRegion or twoRegion)
+            emit signal4(player.getName() + " added region");
     }
 }
 
