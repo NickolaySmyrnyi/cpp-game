@@ -19,6 +19,10 @@ class Game : public QGraphicsView
     // making some actions of some countries every year
     void makeAction();
 
+    // actions
+    void betterRelation();
+    void worseRelation();
+
     // qt tools
     void keyPressEvent(QKeyEvent* event) override;
     QGraphicsScene* scene;

@@ -18,6 +18,8 @@ QColor Player::getColor() { return color_; }
 
 int Player::countRegions() { return regions_.size(); }
 
+bool Player::isLess(const Player& rhs) const { return name_ < rhs.name_; }
+
 void Player::addRegion(Region* region, bool flag)
 {
     // getting the region and setting to it player's color
@@ -30,3 +32,5 @@ void Player::addRegion(Region* region, bool flag)
 }
 
 void Player::addCity(City& city) { cities_.push_back(city); }
+
+bool operator<(const Player& lhs, const Player& rhs) { return lhs.isLess(rhs); }

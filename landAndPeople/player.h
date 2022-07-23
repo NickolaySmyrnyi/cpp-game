@@ -26,20 +26,23 @@ class Player
     // number of player's regions
     int countRegions();
 
+    // communication with other players
+    QMap<Player, int> countries;
+
+    // operators
+    bool isLess(const Player& rhs) const;
+
    private:
     // name, color and amount of money of a player
     QString name_;
     QColor color_;
     int money_;
 
-    // communication with other players
-    QVector<QMap<Player, int>> friends_;
-    QVector<QMap<Player, int>> enemies_;
-    QVector<QMap<Player, int>> neutral_;
-
     // all player's regions and cities
     QVector<Region*> regions_;
     QVector<City> cities_;
 };
+
+bool operator<(const Player& lhs, const Player& rhs);
 
 #endif  // PLAYER_H
